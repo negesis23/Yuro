@@ -195,7 +195,7 @@ class DetailViewModel extends ChangeNotifier {
             } catch (e) {
               if (context.mounted) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('操作失败: $e')),
+                  SnackBar(content: Text('Operation failed: $e')),
                 );
               }
             }
@@ -231,7 +231,7 @@ class DetailViewModel extends ChangeNotifier {
         notifyListeners();
       }
       
-      final action = (playlist.exist ?? false) ? '移除' : '添加';
+      final action = (playlist.exist ?? false) ? 'Removed from' : 'Added to';
       AppLogger.info('$action收藏成功: ${playlist.name}');
     } catch (e) {
       AppLogger.error('切换收藏状态失败', e);
