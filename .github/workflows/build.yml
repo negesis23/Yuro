@@ -17,16 +17,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0  # 获取完整的 git 历史
-
-      - name: Setup Java
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'zulu'
-          java-version: '21'
-
+      - uses: actions/checkout@v4
+      
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
@@ -36,113 +28,13 @@ jobs:
       - name: Get dependencies
         run: flutter pub get
 
-      - name: Create key.properties
-        run: |
-          echo "storePassword=${{ secrets.KEY_STORE_PASSWORD }}" >> android/key.properties
-          echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> android/key.properties
-          echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> android/key.properties
-          echo "storeFile=upload-keystore.jks" >> android/key.properties
-
-      - name: Create keystore file
-        run: echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > android/app/upload-keystore.jks
-
       - name: Build APK
-        run: flutter build apk --release
-
-      - name: Build App Bundle
-        run: flutter build appbundle --release
+        run: flutter build apk --split-per-abi --release
 
       - name: Upload Android artifacts
         uses: actions/upload-artifact@v4
         with:
           name: android-build
           path: |
-            build/app/outputs/flutter-apk/app-release.apk
-            build/app/outputs/bundle/release/app-release.aab
-
-  upload:
-    runs-on: ubuntu-latest
-    needs: [ build-android ]
-
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0  # 获取完整的 git 历史
-
-      - name: Download artifacts
-        uses: actions/download-artifact@v4
-        with:
-          path: ./dist/
-          merge-multiple: true
-
-      - name: List files
-        run: tree dist
-
-      - name: Prepare scripts
-        run: |
-          mkdir -p .github/scripts
-          chmod +x .github/scripts/process_commits.sh
-
-      - name: Get Previous tag
-        id: previoustag
-        run: |
-          CURRENT_TAG=${GITHUB_REF#refs/tags/}
-          PREVIOUS_TAG=$(git describe --tags --abbrev=0 ${CURRENT_TAG}^ 2>/dev/null || echo "v0.0.0")
-          echo "tag=${PREVIOUS_TAG}" >> $GITHUB_OUTPUT
-
-      - name: Generate commit messages
-        id: commits
-        run: |
-          CURRENT_TAG=${GITHUB_REF#refs/tags/}
-          PREV_TAG=${{ steps.previoustag.outputs.tag }}
-          COMMITS=$(git log ${PREV_TAG}..${CURRENT_TAG} --pretty=format:"%s%n%b" | .github/scripts/process_commits.sh)
-          echo "commits<<EOF" >> $GITHUB_OUTPUT
-          echo "$COMMITS" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
-
-      - name: Create Release
-        if: startsWith(github.ref, 'refs/tags/')
-        uses: softprops/action-gh-release@v1
-        with:
-          prerelease: true
-          draft: false
-          body: |
-            ## 🚧 Pre-release Version
+            build/app/outputs/apk/release/app-armeabi-v7a-release.apk
             
-            ### 📋 Release Information
-            **Version:** ${{ github.ref_name }}
-            **Previous Version:** ${{ steps.previoustag.outputs.tag }}
-            **Build Environment:** Flutter ${{ env.FLUTTER_VERSION }}
-            
-            ### 📝 Changelog
-            ${{ steps.commits.outputs.commits }}
-            
-            ### 📦 Distribution
-            | File | Description | Purpose |
-            |------|-------------|----------|
-            | `.apk` | Android Package | Direct installation for testing |
-            | `.aab` | Android App Bundle | Google Play Store deployment |
-            
-            ### 🔍 Additional Notes
-            - This is a pre-release build intended for testing purposes
-            - Features and functionality may not be fully stable
-            - Not recommended for production use
-            
-            ### 📱 Compatibility
-            - Minimum Android SDK: 21 (Android 5.0)
-            - Target Android SDK: 33 (Android 13)
-            
-            > **Note:** Please report any issues or bugs through the GitHub issue tracker.
-          files: |
-            dist/flutter-apk/app-release.apk
-            dist/bundle/release/app-release.aab
-            dist/app-release.ipa
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Upload artifacts if not release
-        if: startsWith(github.ref, 'refs/tags/') == false
-        uses: actions/upload-artifact@v4
-        with:
-          name: everything
-          path: dist/
