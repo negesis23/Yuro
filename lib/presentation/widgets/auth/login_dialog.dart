@@ -42,14 +42,14 @@ class _LoginDialogState extends State<LoginDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('登录'),
+      title: const Text('Login'),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           TextField(
             controller: _nameController,
             decoration: const InputDecoration(
-              labelText: '用户名',
+              labelText: 'Username',
               border: OutlineInputBorder(),
             ),
             textInputAction: TextInputAction.next,
@@ -58,7 +58,7 @@ class _LoginDialogState extends State<LoginDialog> {
           TextField(
             controller: _passwordController,
             decoration: InputDecoration(
-              labelText: '密码',
+              labelText: 'Password',
               border: const OutlineInputBorder(),
               suffixIcon: IconButton(
                 icon: Icon(
@@ -94,7 +94,7 @@ class _LoginDialogState extends State<LoginDialog> {
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: const Text('取消'),
+          child: const Text('Cancel'),
         ),
         Consumer<AuthViewModel>(
           builder: (context, authVM, _) {
@@ -108,7 +108,7 @@ class _LoginDialogState extends State<LoginDialog> {
                         strokeWidth: 2,
                       ),
                     )
-                  : const Text('登录'),
+                  : const Text('Login'),
             );
           },
         ),
