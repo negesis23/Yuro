@@ -131,9 +131,9 @@ class PlaylistsViewModel extends ChangeNotifier {
   String getDisplayName(String? name) {
     switch (name) {
       case '__SYS_PLAYLIST_MARKED':
-        return '我标记的';
+        return 'My Marked';
       case '__SYS_PLAYLIST_LIKED':
-        return '我喜欢的';
+        return 'My Liked';
       default:
         return name ?? '';
     }
