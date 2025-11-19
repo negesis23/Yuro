@@ -22,28 +22,17 @@ class FilterPanel extends StatelessWidget {
 
   String _getOrderFieldText(String field) {
     switch (field) {
-      case 'create_date':
-        return '收录时间';
-      case 'release':
-        return '发售日期';
-      case 'dl_count':
-        return '销量';
-      case 'price':
-        return '价格';
-      case 'rate_average_2dp':
-        return '评价';
-      case 'review_count':
-        return '评论数量';
-      case 'id':
-        return 'RJ号';
-      case 'rating':
-        return '我的评价';
-      case 'nsfw':
-        return '全年龄';
-      case 'random':
-        return '随机';
-      default:
-        return '排序';
+      case 'create_date': return 'Added Date';
+      case 'release': return 'Release Date';
+      case 'dl_count': return 'Downloads';
+      case 'price': return 'Price';
+      case 'rate_average_2dp': return 'Rating';
+      case 'review_count': return 'Reviews';
+      case 'id': return 'RJ Code';
+      case 'rating': return 'My Rating';
+      case 'nsfw': return 'All Ages';
+      case 'random': return 'Random';
+      default: return 'Sort';
     }
   }
 
@@ -81,7 +70,7 @@ class FilterPanel extends StatelessWidget {
                         ),
                         const SizedBox(width: 8),
                         Text(
-                          '有字幕',
+                          'Subtitle',
                           style: TextStyle(
                             color: hasSubtitle 
                                 ? Theme.of(context).colorScheme.primary 
@@ -148,7 +137,7 @@ class FilterPanel extends StatelessWidget {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text(isDescending ? '降序' : '升序'),
+                        Text(isDescending ? 'Desc' : 'Asc'),
                         const SizedBox(width: 4),
                         Icon(
                           isDescending ? Icons.arrow_downward : Icons.arrow_upward,
