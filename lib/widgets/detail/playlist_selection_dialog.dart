@@ -67,7 +67,7 @@ class _PlaylistSelectionDialogState extends State<PlaylistSelectionDialog> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                '添加到收藏夹',
+                'Add to Playlist',
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: 16),
@@ -98,7 +98,7 @@ class _PlaylistSelectionDialogState extends State<PlaylistSelectionDialog> {
               const SizedBox(height: 8),
               ElevatedButton(
                 onPressed: widget.onRetry,
-                child: const Text('重试'),
+                child: const Text('No Playlists'),
               ),
             ],
           ],
@@ -108,7 +108,7 @@ class _PlaylistSelectionDialogState extends State<PlaylistSelectionDialog> {
 
     if (widget.playlists == null || widget.playlists!.isEmpty) {
       return const Center(
-        child: Text('暂无收藏夹'),
+        child: Text('No Favorites yet'),
       );
     }
 
@@ -149,7 +149,7 @@ class _PlaylistSelectionDialogState extends State<PlaylistSelectionDialog> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-              '${newPlaylist.exist! ? '添加成功' : '移除成功'}: ${_getDisplayName(newPlaylist.name)}',
+              '${newPlaylist.exist! ? 'Added successfully' : 'Removal successful'}: ${_getDisplayName(newPlaylist.name)}',
               style: TextStyle(
                 color: Theme.of(context).colorScheme.onSurface,
               ),
@@ -176,9 +176,9 @@ class _PlaylistSelectionDialogState extends State<PlaylistSelectionDialog> {
   String _getDisplayName(String? name) {
     switch (name) {
       case '__SYS_PLAYLIST_MARKED':
-        return '我标记的';
+        return 'I Marked';
       case '__SYS_PLAYLIST_LIKED':
-        return '我喜欢的';
+        return 'My Favorite';
       default:
         return name ?? '';
     }
@@ -197,9 +197,9 @@ class _PlaylistItem extends StatelessWidget {
   String _getDisplayName(String? name) {
     switch (name) {
       case '__SYS_PLAYLIST_MARKED':
-        return '我标记的';
+        return 'I Marked';
       case '__SYS_PLAYLIST_LIKED':
-        return '我喜欢的';
+        return 'My Favorite';
       default:
         return name ?? '';
     }
