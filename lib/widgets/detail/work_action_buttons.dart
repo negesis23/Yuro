@@ -31,30 +31,17 @@ class WorkActionButtons extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           _ActionButton(
-            icon: Icons.favorite_border,
-            label: '收藏',
-            onTap: onFavoriteTap,
-            loading: loadingFavorite,
-          ),
-          _ActionButton(
-            icon: Icons.bookmark_border,
-            label: currentMarkStatus?.label ?? '标记',
-            onTap: onMarkTap,
-            loading: loadingMark,
-          ),
-          _ActionButton(
-            icon: Icons.star_border,
-            label: '评分',
-            onTap: () {
-              // TODO: 实现评分功能
-            },
-          ),
-          _ActionButton(
-            icon: Icons.recommend,
-            label: checkingRecommendations ? '检查中' : (hasRecommendations ? '相关推荐' : '暂无推荐'),
-            onTap: hasRecommendations ? onRecommendationsTap : null,
-            loading: checkingRecommendations,
-          ),
+  icon: Icons.favorite_border,
+  label: 'Favorite', // '收藏'
+),
+_ActionButton(
+  icon: Icons.bookmark_border,
+  label: currentMarkStatus?.label ?? 'Mark', // '标记'
+),
+_ActionButton(
+  icon: Icons.star_border,
+  label: 'Rate', // '评分'
+),
         ],
       ),
     );
