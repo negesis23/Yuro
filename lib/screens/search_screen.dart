@@ -83,23 +83,23 @@ class _SearchScreenContentState extends State<SearchScreenContent> {
   String _getOrderText(String order, String sort) {
     switch (order) {
       case 'create_date':
-        return sort == 'desc' ? '最新收录' : '最早收录';
+        return sort == 'desc' ? 'Newest' : 'Oldest';
       case 'release':
-        return sort == 'desc' ? '发售日期倒序' : '发售日期顺序';
+        return sort == 'desc' ? 'Release Date (Newest)' : 'Release Date (Oldest)';
       case 'dl_count':
-        return sort == 'desc' ? '销量倒序' : '销量顺序';
+        return sort == 'desc' ? 'Most Downloaded' : 'Least Downloaded';
       case 'price':
-        return sort == 'desc' ? '价格倒序' : '价格顺序';
+        return sort == 'desc' ? 'Price (High)' : 'Price (Low)';
       case 'rate_average_2dp':
-        return '评价倒序';
+        return 'Highest Rated';
       case 'review_count':
-        return '评论数量倒序';
+        return 'Most Reviewed';
       case 'id':
-        return sort == 'desc' ? 'RJ号倒序' : 'RJ号顺序';
+        return sort == 'desc' ? 'RJ Code (Desc)' : 'RJ Code (Asc)';
       case 'random':
-        return '随机排序';
+        return 'Random';
       default:
-        return '排序';
+        return 'Sort';
     }
   }
 
@@ -121,7 +121,7 @@ class _SearchScreenContentState extends State<SearchScreenContent> {
                   child: TextField(
                     controller: _searchController,
                     decoration: InputDecoration(
-                      hintText: '搜索...',
+                      hintText: 'Search...',
                       filled: true,
                       fillColor: Theme.of(context)
                           .colorScheme
@@ -158,7 +158,7 @@ class _SearchScreenContentState extends State<SearchScreenContent> {
                       // 字幕选项
                       Consumer<SearchViewModel>(
                         builder: (context, viewModel, _) => FilterChip(
-                          label: const Text('字幕'),
+                          label: const Text('Subtitle'),
                           selected: viewModel.hasSubtitle,
                           onSelected: (_) => viewModel.toggleSubtitle(),
                           showCheckmark: true,
@@ -177,50 +177,17 @@ class _SearchScreenContentState extends State<SearchScreenContent> {
                             onDeleted: null,
                           ),
                           itemBuilder: (context) => [
-                            const PopupMenuItem(
-                              value: ('create_date', 'desc'),
-                              child: Text('最新收录'),
-                            ),
-                            const PopupMenuItem(
-                              value: ('release', 'desc'),
-                              child: Text('发售日期倒序'),
-                            ),
-                            const PopupMenuItem(
-                              value: ('release', 'asc'),
-                              child: Text('发售日期顺序'),
-                            ),
-                            const PopupMenuItem(
-                              value: ('dl_count', 'desc'),
-                              child: Text('销量倒序'),
-                            ),
-                            const PopupMenuItem(
-                              value: ('price', 'asc'),
-                              child: Text('价格顺序'),
-                            ),
-                            const PopupMenuItem(
-                              value: ('price', 'desc'),
-                              child: Text('价格倒序'),
-                            ),
-                            const PopupMenuItem(
-                              value: ('rate_average_2dp', 'desc'),
-                              child: Text('评价倒序'),
-                            ),
-                            const PopupMenuItem(
-                              value: ('review_count', 'desc'),
-                              child: Text('评论数量倒序'),
-                            ),
-                            const PopupMenuItem(
-                              value: ('id', 'desc'),
-                              child: Text('RJ号倒序'),
-                            ),
-                            const PopupMenuItem(
-                              value: ('id', 'asc'),
-                              child: Text('RJ号顺序'),
-                            ),
-                            const PopupMenuItem(
-                              value: ('random', 'desc'),
-                              child: Text('随机排序'),
-                            ),
+                            const PopupMenuItem(value: ('create_date', 'desc'), child: Text('Newest')),
+  const PopupMenuItem(value: ('release', 'desc'), child: Text('Release Date (Newest)')),
+  const PopupMenuItem(value: ('release', 'asc'), child: Text('Release Date (Oldest)')),
+  const PopupMenuItem(value: ('dl_count', 'desc'), child: Text('Most Downloaded')),
+  const PopupMenuItem(value: ('price', 'asc'), child: Text('Price (Low)')),
+  const PopupMenuItem(value: ('price', 'desc'), child: Text('Price (High)')),
+  const PopupMenuItem(value: ('rate_average_2dp', 'desc'), child: Text('Highest Rated')),
+  const PopupMenuItem(value: ('review_count', 'desc'), child: Text('Most Reviewed')),
+  const PopupMenuItem(value: ('id', 'desc'), child: Text('RJ Code (Desc)')),
+  const PopupMenuItem(value: ('id', 'asc'), child: Text('RJ Code (Asc)')),
+  const PopupMenuItem(value: ('random', 'desc'), child: Text('Random')),
                           ],
                           onSelected: (value) =>
                               viewModel.setOrder(value.$1, value.$2),
@@ -238,11 +205,11 @@ class _SearchScreenContentState extends State<SearchScreenContent> {
                 Widget? emptyWidget;
                 if (viewModel.works.isEmpty && viewModel.keyword.isEmpty) {
                   emptyWidget = const Center(
-                    child: Text('输入关键词开始搜索'),
+                    child: Text('Enter keyword to search'),
                   );
                 } else if (viewModel.works.isEmpty) {
                   emptyWidget = const Center(
-                    child: Text('没有找到相关结果'),
+                    child: Text('No results found'),
                   );
                 }
 
