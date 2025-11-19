@@ -96,7 +96,7 @@ class MiniPlayer extends StatelessWidget {
                             child: Material(
                               color: Colors.transparent,
                               child: Text(
-                                viewModel.currentTrackInfo?.title ?? '未在播放',
+                                viewModel.currentTrackInfo?.title ?? 'Not Playing',
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: Theme.of(context).textTheme.titleSmall,
