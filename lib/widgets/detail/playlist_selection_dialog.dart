@@ -176,9 +176,9 @@ class _PlaylistSelectionDialogState extends State<PlaylistSelectionDialog> {
   String _getDisplayName(String? name) {
     switch (name) {
       case '__SYS_PLAYLIST_MARKED':
-        return 'I Marked';
+        return 'My Marked';
       case '__SYS_PLAYLIST_LIKED':
-        return 'My Favorite';
+        return 'My Liked';
       default:
         return name ?? '';
     }
@@ -197,9 +197,9 @@ class _PlaylistItem extends StatelessWidget {
   String _getDisplayName(String? name) {
     switch (name) {
       case '__SYS_PLAYLIST_MARKED':
-        return 'I Marked';
+        return 'My Marked';
       case '__SYS_PLAYLIST_LIKED':
-        return 'My Favorite';
+        return 'My Liked';
       default:
         return name ?? '';
     }
