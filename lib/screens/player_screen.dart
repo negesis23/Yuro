@@ -102,7 +102,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                             child: Material(
                               color: Colors.transparent,
                               child: Text(
-                                _viewModel.currentTrackInfo?.title ?? '未在播放',
+                                _viewModel.currentTrackInfo?.title ?? 'Not Playing',
                                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
                                       fontWeight: FontWeight.w600,
                                     ),
@@ -179,7 +179,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                     ? Icons.lightbulb
                     : Icons.lightbulb_outline,
                 ),
-                tooltip: wakeLockController.enabled ? '关闭屏幕常亮' : '开启屏幕常亮',
+                tooltip: wakeLockController.enabled ? 'Disable Screen On' : 'Enable Screen On',
                 onPressed: () => wakeLockController.toggle(),
               );
             },
