@@ -1,10 +1,10 @@
 enum MarkStatus {
-  wantToListen('想听'),
-  listening('在听'),
-  listened('听过'),
-  relistening('重听'),
-  onHold('搁置');
-
+  wantToListen('Plan to Listen'),
+  listening('Listening'),
+  listened('Listened'),
+  relistening('Re-listening'),
+  onHold('On Hold');
+  
   final String label;
   const MarkStatus(this.label);
-} 
+}
