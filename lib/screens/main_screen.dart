@@ -38,8 +38,8 @@ class _MainScreenState extends State<MainScreen> {
   late final RecommendViewModel _recommendViewModel;
   late final PlaylistsViewModel _playlistsViewModel;
 
-  final _titles = const ['收藏', '主页', '为你推荐', '热门作品'];
-
+  final _titles = const ['Favorites', 'Home', 'For You', 'Popular'];
+  
   // 页面内容列表
   // 注意：这些页面不应该创建自己的 ViewModel 实例
   // 而是应该通过 Provider.of 或 context.read 获取 MainScreen 提供的实例
@@ -163,27 +163,27 @@ class _MainScreenState extends State<MainScreen> {
                   selectedIndex: _currentIndex,
                   onDestinationSelected: _onTabTapped,
                   destinations: const [
-                    NavigationDestination(
-                      icon: Icon(Icons.favorite_outline),
-                      selectedIcon: Icon(Icons.favorite),
-                      label: '收藏',
-                    ),
-                    NavigationDestination(
-                      icon: Icon(Icons.home_outlined),
-                      selectedIcon: Icon(Icons.home),
-                      label: '主页',
-                    ),
-                    NavigationDestination(
-                      icon: Icon(Icons.recommend_outlined),
-                      selectedIcon: Icon(Icons.recommend),
-                      label: '推荐',
-                    ),
-                    NavigationDestination(
-                      icon: Icon(Icons.trending_up_outlined),
-                      selectedIcon: Icon(Icons.trending_up),
-                      label: '热门',
-                    ),
-                  ],
+  NavigationDestination(
+    icon: Icon(Icons.favorite_outline),
+    selectedIcon: Icon(Icons.favorite),
+    label: 'Favorites',
+  ),
+  NavigationDestination(
+    icon: Icon(Icons.home_outlined),
+    selectedIcon: Icon(Icons.home),
+    label: 'Home',
+  ),
+  NavigationDestination(
+    icon: Icon(Icons.recommend_outlined),
+    selectedIcon: Icon(Icons.recommend),
+    label: 'For You',
+  ),
+  NavigationDestination(
+    icon: Icon(Icons.trending_up_outlined),
+    selectedIcon: Icon(Icons.trending_up),
+    label: 'Popular',
+  ),
+],
                 ),
               ],
             ),
