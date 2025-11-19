@@ -11,7 +11,7 @@ class CacheManagerScreen extends StatelessWidget {
       create: (_) => CacheManagerViewModel()..loadCacheSize(),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('缓存管理'),
+          title: const Text('Cache Manager'),
         ),
         body: Consumer<CacheManagerViewModel>(
           builder: (context, viewModel, _) {
@@ -32,49 +32,49 @@ class CacheManagerScreen extends StatelessWidget {
               children: [
                 // 音频缓存
                 ListTile(
-                  title: const Text('音频缓存'),
+                  title: const Text('Audio Cache'),
                   subtitle: Text(viewModel.audioCacheSizeFormatted),
                   trailing: TextButton(
                     onPressed: viewModel.isLoading 
                       ? null 
                       : () => viewModel.clearAudioCache(),
-                    child: const Text('清理'),
+                    child: const Text('Clear'),
                   ),
                 ),
                 const Divider(),
                 
                 // 字幕缓存
                 ListTile(
-                  title: const Text('字幕缓存'),
+                  title: const Text('Subtitle Cache'),
                   subtitle: Text(viewModel.subtitleCacheSizeFormatted),
                   trailing: TextButton(
                     onPressed: viewModel.isLoading 
                       ? null 
                       : () => viewModel.clearSubtitleCache(),
-                    child: const Text('清理'),
+                    child: const Text('Clear'),
                   ),
                 ),
                 const Divider(),
                 
                 // 总缓存大小
                 ListTile(
-                  title: const Text('总缓存大小'),
+                  title: const Text('Total Cache Size'),
                   subtitle: Text(viewModel.totalCacheSizeFormatted),
                   trailing: TextButton(
                     onPressed: viewModel.isLoading 
                       ? null 
                       : () => viewModel.clearAllCache(),
-                    child: const Text('清理全部'),
+                    child: const Text('Clear All Cache'),
                   ),
                 ),
                 const Divider(),
                 
                 // 缓存说明
                 const ListTile(
-                  title: Text('缓存说明'),
-                  subtitle: Text(
-                    '缓存用于存储最近播放的音频文件和字幕文件，以提高再次播放时的加载速度。'
-                    '系统会自动清理过期和超量的缓存。'
+                  title: const Text('About Cache'),
+                  subtitle: const Text(
+                    'Cache is used to store recently played audio and subtitle files to improve playback speed. '
+                    'The system will automatically clean up expired or excessive cache.' 
                   ),
                 ),
               ],
